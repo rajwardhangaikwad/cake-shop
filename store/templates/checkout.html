@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout - SugarBloom Bakery</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #fff7f9;
+            margin: 0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff4d6d, #ff7aa2);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 22px;
+        }
+
+        .container {
+            width: 70%;
+            margin: auto;
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .box {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .total {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: none;
+            margin-top: 10px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff4d6d, #ff7aa2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .hint {
+            font-size: 13px;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    💳 Checkout - SugarBloom Bakery
+</div>
+
+<div class="container">
+
+    <!-- ORDER SUMMARY -->
+    <div class="box">
+        <h3>Your Order</h3>
+
+        {% for product in products %}
+            <div class="order-item">
+                <span>{{ product.name }} (x{{ product.qty }})</span>
+                <span>₹{{ product.total_price }}</span>
+            </div>
+        {% endfor %}
+
+        <p class="total">Total: ₹{{ total }}</p>
+    </div>
+
+    <!-- ADDRESS FORM -->
+    <div class="box">
+
+        <h3>Delivery Address</h3>
+
+        <p class="hint">Please enter full address (House No, Street, City, Pincode)</p>
+
+        <form method="POST" action="{% url 'place_order' %}">
+            {% csrf_token %}
+
+            <textarea name="address" placeholder="Write your delivery address here..." required></textarea>
+
+            <button type="submit" class="btn">
+                Place Order
+            </button>
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

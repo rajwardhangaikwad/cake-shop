@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart - SugarBloom Bakery</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #fff7f9;
+            margin: 0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff4d6d, #ff7aa2);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .container {
+            width: 60%;
+            margin: auto;
+            margin-top: 20px;
+        }
+
+        .item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .left h3 {
+            margin: 0;
+        }
+
+        .qty-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .qty-box a {
+            text-decoration: none;
+            font-size: 18px;
+            background: #ff4d6d;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .total {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff4d6d, #ff7aa2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    🛒 Your Cart - SugarBloom Bakery
+</div>
+
+<div class="container">
+
+{% for product in products %}
+<div class="item">
+
+    <div class="left">
+        <h3>{{ product.name }}</h3>
+
+        <!-- QTY CONTROLS -->
+        <div class="qty-box">
+            <a href="{% url 'decrease_qty' product.id %}">➖</a>
+            <span>{{ product.qty }}</span>
+            <a href="{% url 'increase_qty' product.id %}">➕</a>
+        </div>
+    </div>
+
+    <div class="right">
+        <p>₹{{ product.total_price }}</p>
+        <a href="{% url 'remove_from_cart' product.id %}" style="color:red;">Remove</a>
+    </div>
+
+</div>
+{% endfor %}
+
+<p class="total">Total: ₹{{ total }}</p>
+
+<a href="{% url 'checkout' %}" class="checkout-btn">
+    Proceed to Checkout
+</a>
+
+</div>
+
+</body>
+</html>

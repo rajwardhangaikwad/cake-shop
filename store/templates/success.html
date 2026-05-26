@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Successful</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial;
+            background:#fff5f7;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .box{
+            background:white;
+            width:400px;
+            padding:30px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 0 15px #ddd;
+        }
+
+        .tick{
+            font-size:70px;
+            color:green;
+        }
+
+        h1{
+            color:#ff4d6d;
+        }
+
+        p{
+            color:#555;
+            margin:10px 0;
+        }
+
+        .btn{
+            background:#ff4d6d;
+            color:white;
+            border:none;
+            padding:12px 20px;
+            border-radius:5px;
+            cursor:pointer;
+            margin-top:20px;
+            font-size:16px;
+        }
+
+        .btn:hover{
+            opacity:0.9;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <div class="tick">
+        ✔
+    </div>
+
+    <h1>Order Successful!</h1>
+
+    <p>
+        Thank you for ordering from Cake Shop 🍰
+    </p>
+
+    <p>
+        <strong>Order ID:</strong>
+        {{ order.id }}
+    </p>
+
+    <p>
+        <strong>Total Amount:</strong>
+        ₹{{ order.total_price }}
+    </p>
+
+    <p>
+        <strong>Delivery Address:</strong><br>
+        {{ order.address }}
+    </p>
+
+    <a href="/">
+        <button class="btn">
+            Continue Shopping
+        </button>
+    </a>
+
+</div>
+
+</body>
+</html>

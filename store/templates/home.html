@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SugarBloom Bakery</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial';
+            background: #fff7f9;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #ff4d6d, #ff7aa2);
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .search-box input {
+            padding: 8px;
+            border: none;
+            border-radius: 20px;
+            width: 250px;
+            outline: none;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+
+        /* CATEGORY BAR */
+        .categories {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .categories a {
+            text-decoration: none;
+            padding: 8px 15px;
+            margin: 5px;
+            display: inline-block;
+            border-radius: 20px;
+            background: #ff4d6d;
+            color: white;
+            font-size: 14px;
+        }
+
+        .categories a:hover {
+            opacity: 0.8;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 40px;
+            background: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587') center/cover;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+        }
+
+        .hero p {
+            font-size: 18px;
+        }
+
+        /* PRODUCTS */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .card {
+            width: 260px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .price {
+            color: #ff4d6d;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff4d6d, #ff7aa2);
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background: #222;
+            color: white;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+
+    <div class="logo">🍰 SugarBloom Bakery</div>
+
+    <!-- SEARCH -->
+    <form method="GET" action="" class="search-box">
+        <input type="text" name="q" placeholder="Search cakes...">
+    </form>
+
+    <div class="nav">
+        {% if user.is_authenticated %}
+            Hi, {{ user.username }}
+            <a href="/accounts/logout/">Logout</a>
+        {% else %}
+            <a href="/accounts/login/">Login</a>
+            <a href="/signup/">Signup</a>
+        {% endif %}
+
+        <a href="{% url 'cart' %}">🛒 Cart</a>
+    </div>
+
+</div>
+
+<!-- CATEGORY FILTER BAR -->
+<div class="categories">
+
+    
+    <a href="?category=cake">Cakes</a>
+    <a href="?category=pastry">Pastries</a>
+    <a href="?category=cupcake">Cupcakes</a>
+
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>Freshly Baked Happiness 🍰</h1>
+    <p>Delicious cakes delivered to your doorstep</p>
+</div>
+
+<!-- PRODUCTS -->
+<div class="container">
+
+{% for product in products %}
+    <div class="card">
+
+        <img src="{{ product.image.url }}">
+
+        <div class="card-body">
+            <h3>{{ product.name }}</h3>
+            <p class="price">₹{{ product.price }}</p>
+    
+
+            <a href="{% url 'add_to_cart' product.id %}">
+                <button class="btn">Add to Cart</button>
+            </a>
+        </div>
+
+    </div>
+{% endfor %}
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    © 2026 SugarBloom Bakery | Made with ❤️ Django
+</div>
+
+</body>
+</html>
